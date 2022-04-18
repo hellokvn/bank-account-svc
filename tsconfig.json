@@ -17,6 +17,9 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "paths": {}
+    "paths": {
+      "@command/*": ["./apps/command/src/*"],
+      "@query/*": ["./apps/query/src/*"]
+    }
   }
 }

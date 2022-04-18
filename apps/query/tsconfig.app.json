@@ -2,7 +2,10 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "declaration": false,
-    "outDir": "../../dist/apps/query"
+    "outDir": "../../dist/apps/query",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]

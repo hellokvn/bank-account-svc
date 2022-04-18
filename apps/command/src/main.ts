@@ -1,9 +1,17 @@
+import { Logger, INestApplication } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { CommandModule } from './command.module';
+import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(CommandModule);
-  await app.listen(3002);
-  console.log('running 3002');
+  const app: INestApplication = await NestFactory.create(AppModule);
+  const logger: Logger = new Logger();
+  const port: number = 3000;
+
+  await app.listen(port, () => {
+    logger.log(`[NOD] ${process.version}`);
+    logger.log(`[ENV] ${process.env.NODE_ENV}`);
+    logger.log(`[PRT] ${port}`);
+  });
 }
+
 bootstrap();

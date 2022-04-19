@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { EventSourcingHandler } from 'nest-event-sourcing';
 import { AccountEventProducer } from '../common/account-event.producer';
-import { DepositFundsController } from './api/deposit-funds.controller';
-import { DepositFundsHandler } from './api/deposit-funds.handler';
-import { FundsDepositedHandler } from './infrastructure/funds-deposited.handler';
+import { DepositFundsHandler } from './commands/deposit-funds.handler';
+import { DepositFundsController } from './controllers/deposit-funds.controller';
+import { FundsDepositedHandler } from './events/funds-deposited.handler';
 
 @Module({
   imports: [CqrsModule],

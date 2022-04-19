@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { OpenAccountController } from './api/open-account.controller';
-import { OpenAccountHandler } from './api/open-account.handler';
-import { AccountOpenedHandler } from './infrastructur/account-opened.handler';
 import { CqrsModule } from '@nestjs/cqrs';
+import { OpenAccountController } from './controllers/open-account.controller';
+import { AccountOpenedHandler } from './events/account-opened.handler';
+import { EventSourcingHandler } from 'nest-event-sourcing';
+import { OpenAccountHandler } from './commands/open-account.handler';
 import { AccountEventProducer } from '../common/account-event.producer';
-import { EventSourcingModule, EventSourcingHandler } from 'nest-event-sourcing';
 
 @Module({
   imports: [CqrsModule],

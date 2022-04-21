@@ -14,7 +14,9 @@
       "entryFile": "main",
       "sourceRoot": "apps/command/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/command/tsconfig.app.json"
+        "tsConfigPath": "apps/command/tsconfig.app.json",
+        "assets": ["**/*.proto"],
+        "watchAssets": true
       }
     },
     "query": {
@@ -23,7 +25,9 @@
       "entryFile": "main",
       "sourceRoot": "apps/query/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/query/tsconfig.app.json"
+        "tsConfigPath": "apps/query/tsconfig.app.json",
+        "assets": ["**/*.proto"],
+        "watchAssets": true
       }
     }
   }

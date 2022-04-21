@@ -19,9 +19,14 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./apps/command/test/jest-e2e.json",
-    "con:dev": "concurrently \"npm run start:dev command\" \"npm run start:dev query\""
+    "con:dev": "concurrently \"npm run start:dev command\" \"npm run start:dev query\"",
+    "proto:update": "npm install git+https://github.com/hellokvn/bank-shared-proto.git",
+    "proto:gen:query": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto -I=./node_modules/bank-shared-proto/proto --ts_proto_out=apps/query/src/proto/ node_modules/bank-shared-proto/proto/bank-account-query.proto --ts_proto_opt=nestJs=true --ts_proto_opt=fileSuffix=.pb",
+    "proto:gen:command": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto -I=./node_modules/bank-shared-proto/proto --ts_proto_out=apps/command/src/common/proto/ node_modules/bank-shared-proto/proto/bank-account-command.proto --ts_proto_opt=nestJs=true --ts_proto_opt=fileSuffix=.pb"
   },
   "dependencies": {
+    "@grpc/grpc-js": "^1.6.7",
+    "@grpc/proto-loader": "^0.6.9",
     "@nestjs/common": "^8.0.0",
     "@nestjs/config": "^2.0.0",
     "@nestjs/core": "^8.0.0",
@@ -30,6 +35,7 @@
     "@nestjs/microservices": "^8.4.4",
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/typeorm": "^8.0.3",
+    "bank-shared-proto": "git+https://github.com/hellokvn/bank-shared-proto.git",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "kafkajs": "^1.16.0",
@@ -64,6 +70,7 @@
     "ts-jest": "^27.0.3",
     "ts-loader": "^9.2.3",
     "ts-node": "^10.0.0",
+    "ts-proto": "^1.110.4",
     "tsconfig-paths": "^3.10.1",
     "typescript": "^4.3.5"
   },

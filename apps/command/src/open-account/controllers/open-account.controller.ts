@@ -2,14 +2,17 @@ import { Body, Controller, Inject, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { OpenAccountDto } from './open-account.dto';
 import { OpenAccountCommand } from '../commands/open-account.command';
+import { BANK_ACCOUNT_COMMAND_SERVICE_NAME } from '@command/common/proto/bank-account-command.pb';
+import { GrpcMethod } from '@nestjs/microservices';
 
-@Controller('/api/v1/open-account')
+@Controller()
 export class OpenAccountController {
   @Inject(CommandBus)
   private readonly commandBus: CommandBus;
 
-  @Post()
+  @GrpcMethod(BANK_ACCOUNT_COMMAND_SERVICE_NAME, 'OpenAccount')
   public async openAccount(@Body() payload: OpenAccountDto): Promise<any> {
+    console.log(BANK_ACCOUNT_COMMAND_SERVICE_NAME, 'OpenAccount');
     const command: OpenAccountCommand = new OpenAccountCommand(payload);
 
     this.commandBus.execute(command);

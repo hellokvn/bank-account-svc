@@ -2,6 +2,7 @@ import { Controller, Inject, OnApplicationBootstrap } from '@nestjs/common';
 import { EventBus } from '@nestjs/cqrs';
 import { ClientKafka, MessagePattern, Payload } from '@nestjs/microservices';
 import { plainToClass } from 'class-transformer';
+import { KafkaMessage } from 'kafkajs';
 import { AccountOpenedEvent } from '@shared/events';
 
 @Controller()
@@ -18,9 +19,10 @@ export class AccountConsumer implements OnApplicationBootstrap {
   }
 
   @MessagePattern(AccountOpenedEvent.constructor.name)
-  private consume(@Payload() payload: any): any {
-    console.log('@@@@@@@@@@@@@@EEEE AccountOpenedEvent', { payload });
-    const event: AccountOpenedEvent = plainToClass(AccountOpenedEvent, payload.value);
+  private consume(@Payload() { value }: KafkaMessage): void {
+    console.log('AccountConsumer/consume -> AccountOpenedEvent', { value });
+    const event: AccountOpenedEvent = plainToClass(AccountOpenedEvent, value);
+
     this.eventBus.publish(event);
   }
 }

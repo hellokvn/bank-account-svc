@@ -1,13 +1,14 @@
-import { Controller, OnModuleInit, Get, Body } from '@nestjs/common';
+import { Controller, Get, Inject } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { AllAccountsQuery } from '../query/all-accounts.query';
 
 @Controller('/api/v1/lookup/account')
 export class AccountController {
-  constructor(private queryBus: QueryBus) {}
+  @Inject(QueryBus)
+  private readonly queryBus: QueryBus;
 
   @Get()
-  public getAllAccounts(): Promise<any> {
+  private getAllAccounts(): Promise<any> {
     const query: AllAccountsQuery = new AllAccountsQuery();
 
     return this.queryBus.execute(query);

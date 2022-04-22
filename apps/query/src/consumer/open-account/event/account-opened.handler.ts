@@ -1,7 +1,7 @@
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AccountRepository } from '../../common/repository/account.repository';
-import { Account } from '../../common/entity/account.entity';
+import { AccountRepository } from '../../../common/repository/account.repository';
+import { Account } from '../../../common/entity/account.entity';
 import { AccountOpenedEvent } from '@shared/events';
 
 @EventsHandler(AccountOpenedEvent)

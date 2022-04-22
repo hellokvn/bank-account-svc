@@ -2,20 +2,20 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LookupController } from './api/lookup.controller';
-import { Account } from './common/entity/account.entity';
-import { OpenAccountModule } from './open-account/open-account.module';
 import { CqrsModule } from '@nestjs/cqrs';
 import { AccountRepository } from './common/repository/account.repository';
 import { FindAccountQueryHandler } from './api/queries/find-account.handler';
 import { TypeOrmConfigService } from './common/services/typeorm.service';
+import { ConsumerModule } from './consumer/consumer.module';
+import { LookupModule } from './lookup/lookup.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService }),
-    TypeOrmModule.forFeature([AccountRepository]),
     CqrsModule,
-    OpenAccountModule,
+    ConsumerModule,
+    LookupModule,
   ],
   controllers: [LookupController],
   providers: [FindAccountQueryHandler],

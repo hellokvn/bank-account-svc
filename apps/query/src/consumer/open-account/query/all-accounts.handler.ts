@@ -1,6 +1,6 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AccountRepository } from '../../common/repository/account.repository';
+import { AccountRepository } from '../../../common/repository/account.repository';
 import { AllAccountsQuery } from './all-accounts.query';
 
 @QueryHandler(AllAccountsQuery)

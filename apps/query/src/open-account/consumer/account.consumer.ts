@@ -13,11 +13,11 @@ export class AccountConsumer implements OnApplicationBootstrap {
   private eventBus: EventBus;
 
   public async onApplicationBootstrap() {
-    this.client.subscribeToResponseOf('test-topicc');
+    this.client.subscribeToResponseOf('AccountOpenedEvent');
     this.client.connect();
   }
 
-  @MessagePattern('test-topicc')
+  @MessagePattern('AccountOpenedEvent')
   public consume(@Payload() payload: any): any {
     console.log('@@@@@@@@@@@@@@EEEE AccountOpenedEvent', { payload });
     const event: AccountOpenedEvent = plainToClass(AccountOpenedEvent, payload.value);

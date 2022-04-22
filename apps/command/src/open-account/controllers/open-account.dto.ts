@@ -4,11 +4,7 @@ import { AccountType } from '../../common/enums/account-type.enum';
 export class OpenAccountDto {
   @IsString()
   @IsNotEmpty()
-  public firstName: string;
-
-  @IsString()
-  @IsNotEmpty()
-  public lastName: string;
+  public holder: string;
 
   @IsEmail()
   public email: string;

@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Kafka, Producer } from 'kafkajs';
+import { BaseEvent } from 'nest-event-sourcing';
 
 @Injectable()
 export class AccountEventProducer {
@@ -15,7 +16,8 @@ export class AccountEventProducer {
     this.producer.connect();
   }
 
-  public produce<T>(topic: string, event: T): void {
-    this.producer.send({ topic: 'test-topicc', messages: [{ value: JSON.stringify(event) }] });
+  public produce<T extends BaseEvent>(topic: string, event: T): void {
+    console.log('produce', topic);
+    this.producer.send({ topic: topic, messages: [{ value: JSON.stringify(event) }] });
   }
 }

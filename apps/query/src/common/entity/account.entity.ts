@@ -5,10 +5,13 @@ export class Account {
   @PrimaryGeneratedColumn('uuid')
   public id: number;
 
-  @Column({ name: 'account_holder' })
+  @Column()
   public holder: string;
 
-  @Column({ name: 'account_type' })
+  @Column()
+  public email: string;
+
+  @Column()
   public type: string;
 
   @Column()

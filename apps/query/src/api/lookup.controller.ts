@@ -13,7 +13,7 @@ export class LookupController {
 
   @GrpcMethod(BANK_ACCOUNT_QUERY_SERVICE_NAME, 'FindAccount')
   private async findAccount(payload: FindAccountDto): Promise<FindAccountResponse> {
-    console.log('find account', { payload });
+    console.log('FindAccount', { payload });
     const query: FindAccountQuery = new FindAccountQuery();
 
     query.id = payload.id;
@@ -23,7 +23,7 @@ export class LookupController {
     if (!account) {
     }
     console.log({ account });
-    return { status: 200, error: [], id: payload.id };
+    return { status: 200, error: [], data: payload as any };
   }
 
   // @GrpcMethod('HeroesService', 'FindOne')

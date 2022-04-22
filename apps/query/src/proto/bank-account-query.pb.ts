@@ -8,8 +8,7 @@ export const protobufPackage = 'bank_account_query';
 
 export interface Account {
   id: string;
-  firstName: string;
-  latName: string;
+  holder: string;
   isActive: boolean;
   balance: number;
 }

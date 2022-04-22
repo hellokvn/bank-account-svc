@@ -3,8 +3,7 @@ import { AccountType } from '@command/common/enums/account-type.enum';
 import { OpenAccountCommand } from '../commands/open-account.command';
 
 export class AccountOpenedEvent extends BaseEvent {
-  public firstName: string;
-  public lastName: string;
+  public holder: string;
   public email: string;
   public type: AccountType;
   public openingBalance: number;
@@ -18,8 +17,7 @@ export class AccountOpenedEvent extends BaseEvent {
     }
 
     this.id = command.getId();
-    this.firstName = command.getFirstName();
-    this.lastName = command.getLastName();
+    this.holder = command.getHolder();
     this.email = command.getEmail();
     this.type = command.getType();
     this.openingBalance = command.getOpeningBalance();

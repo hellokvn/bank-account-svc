@@ -4,16 +4,14 @@ import { AccountType } from '../../common/enums/account-type.enum';
 
 export class OpenAccountCommand {
   private readonly id: string;
-  private firstName: string;
-  private lastName: string;
+  private holder: string;
   private email: string;
   private type: AccountType;
   private openingBalance: number;
 
   constructor(payload: OpenAccountDto) {
     this.id = uuidv4();
-    this.firstName = payload.firstName;
-    this.lastName = payload.lastName;
+    this.holder = payload.holder;
     this.email = payload.email;
     this.type = payload.type;
     this.openingBalance = payload.openingBalance;
@@ -23,20 +21,12 @@ export class OpenAccountCommand {
     return this.id;
   }
 
-  public getFirstName(): string {
-    return this.firstName;
+  public getHolder(): string {
+    return this.holder;
   }
 
-  public setFirstName(firstName: string): void {
-    this.firstName = firstName;
-  }
-
-  public getLastName(): string {
-    return this.lastName;
-  }
-
-  public setLastName(lastName: string): void {
-    this.lastName = lastName;
+  public setHolder(holder: string): void {
+    this.holder = holder;
   }
 
   public getEmail(): string {

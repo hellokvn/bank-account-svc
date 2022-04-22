@@ -7,8 +7,7 @@ import { Observable } from 'rxjs';
 export const protobufPackage = 'bank_account_command';
 
 export interface OpenAccountRequest {
-  firstName: string;
-  lastName: string;
+  holder: string;
   type: string;
   email: string;
   openingBalance: number;

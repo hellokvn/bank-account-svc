@@ -6,6 +6,27 @@ import { Observable } from 'rxjs';
 
 export const protobufPackage = 'bank_account_query';
 
+export interface Account {
+  id: string;
+  firstName: string;
+  latName: string;
+  isActive: boolean;
+  balance: number;
+}
+
+export interface FindAllAccountsRequest {
+  page: number;
+}
+
+export interface FindAllAccountsResponse {
+  status: number;
+  error: string[];
+  data: Account[];
+  total: number;
+  count: number;
+  page: number;
+}
+
 export interface FindAccountRequest {
   id: string;
 }
@@ -13,22 +34,28 @@ export interface FindAccountRequest {
 export interface FindAccountResponse {
   status: number;
   error: string[];
-  id: string;
+  data: Account | undefined;
 }
 
 export const BANK_ACCOUNT_QUERY_PACKAGE_NAME = 'bank_account_query';
 
 export interface BankAccountQueryServiceClient {
   findAccount(request: FindAccountRequest): Observable<FindAccountResponse>;
+
+  findAllAccounts(request: FindAllAccountsRequest): Observable<FindAllAccountsResponse>;
 }
 
 export interface BankAccountQueryServiceController {
   findAccount(request: FindAccountRequest): Promise<FindAccountResponse> | Observable<FindAccountResponse> | FindAccountResponse;
+
+  findAllAccounts(
+    request: FindAllAccountsRequest,
+  ): Promise<FindAllAccountsResponse> | Observable<FindAllAccountsResponse> | FindAllAccountsResponse;
 }
 
 export function BankAccountQueryServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ['findAccount'];
+    const grpcMethods: string[] = ['findAccount', 'findAllAccounts'];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod('BankAccountQueryService', method)(constructor.prototype[method], method, descriptor);

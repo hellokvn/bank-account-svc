@@ -10,6 +10,7 @@ export interface OpenAccountRequest {
   firstName: string;
   lastName: string;
   type: string;
+  email: string;
   openingBalance: number;
 }
 

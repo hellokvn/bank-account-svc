@@ -9,6 +9,7 @@ export class AccountClosedHandler implements IEventHandler {
   private eventProducer: AccountEventProducer;
 
   public async handle(event: AccountClosedEvent) {
+    console.log('AccountClosedHandler/handle');
     const { constructor }: AccountClosedEvent = Object.getPrototypeOf(event);
 
     this.eventProducer.produce(constructor.name, event);

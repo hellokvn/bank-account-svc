@@ -1,5 +1,4 @@
 import { BaseEvent } from 'nest-event-sourcing';
-import { AccountType } from '@command/common/enums/account-type.enum';
 import { CloseAccountCommand } from '../commands/close-account.command';
 
 export class AccountClosedEvent extends BaseEvent {
@@ -10,6 +9,6 @@ export class AccountClosedEvent extends BaseEvent {
       return;
     }
 
-    this.id = command.getId();
+    this.id = command.id;
   }
 }

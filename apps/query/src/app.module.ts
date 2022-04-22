@@ -7,19 +7,12 @@ import { OpenAccountModule } from './open-account/open-account.module';
 import { CqrsModule } from '@nestjs/cqrs';
 import { AccountRepository } from './common/repository/account.repository';
 import { FindAccountQueryHandler } from './api/queries/find-account.handler';
+import { TypeOrmConfigService } from './common/services/typeorm.service';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'kevin',
-      database: 'account',
-      entities: [Account],
-      synchronize: false,
-    }),
+    TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService }),
     TypeOrmModule.forFeature([AccountRepository]),
     CqrsModule,
     OpenAccountModule,

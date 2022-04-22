@@ -1,8 +1,8 @@
 {
   "name": "bank-account-svc",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "",
-  "author": "",
+  "author": "Kevin Vogel",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -22,7 +22,8 @@
     "con:dev": "concurrently \"npm run start:dev command\" \"npm run start:dev query\"",
     "proto:update": "npm install git+https://github.com/hellokvn/bank-shared-proto.git",
     "proto:gen:query": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto -I=./node_modules/bank-shared-proto/proto --ts_proto_out=apps/query/src/proto/ node_modules/bank-shared-proto/proto/bank-account-query.proto --ts_proto_opt=nestJs=true --ts_proto_opt=fileSuffix=.pb",
-    "proto:gen:command": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto -I=./node_modules/bank-shared-proto/proto --ts_proto_out=apps/command/src/common/proto/ node_modules/bank-shared-proto/proto/bank-account-command.proto --ts_proto_opt=nestJs=true --ts_proto_opt=fileSuffix=.pb"
+    "proto:gen:command": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto -I=./node_modules/bank-shared-proto/proto --ts_proto_out=apps/command/src/common/proto/ node_modules/bank-shared-proto/proto/bank-account-command.proto --ts_proto_opt=nestJs=true --ts_proto_opt=fileSuffix=.pb",
+    "proto": "npm run proto:update && npm run proto:gen:query && npm run proto:gen:command"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.6.7",

@@ -1,5 +1,5 @@
 import { BaseEvent } from 'nest-event-sourcing';
-import { AccountType } from '@command/common/enums/account-type.enum';
+import { AccountType } from '../enums/account-type.enum';
 import { OpenAccountCommand } from '../commands/open-account.command';
 
 export class AccountOpenedEvent extends BaseEvent {

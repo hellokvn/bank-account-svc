@@ -1,7 +1,7 @@
 import { Inject } from '@nestjs/common';
 import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
 import { EventSourcingHandler } from 'nest-event-sourcing';
-import { OpenAccountCommand } from './open-account.command';
+import { OpenAccountCommand } from '@shared/commands';
 import { AccountAggregate } from '@command/common/aggregates/account.aggregate';
 
 @CommandHandler(OpenAccountCommand)

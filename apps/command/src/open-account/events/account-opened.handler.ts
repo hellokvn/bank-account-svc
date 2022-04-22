@@ -1,7 +1,7 @@
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
 import { Inject } from '@nestjs/common';
 import { AccountEventProducer } from '@command/common/account-event.producer';
-import { AccountOpenedEvent } from './account-opened.event';
+import { AccountOpenedEvent } from '@shared/events';
 
 @EventsHandler(AccountOpenedEvent)
 export class AccountOpenedHandler implements IEventHandler {

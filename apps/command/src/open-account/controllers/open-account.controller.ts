@@ -1,9 +1,9 @@
-import { Body, Controller, HttpStatus, Inject, Post } from '@nestjs/common';
+import { Body, Controller, HttpStatus, Inject } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { OpenAccountDto } from './open-account.dto';
-import { OpenAccountCommand } from '../commands/open-account.command';
-import { BANK_ACCOUNT_COMMAND_SERVICE_NAME, OpenAccountResponse } from '@command/common/proto/bank-account-command.pb';
 import { GrpcMethod } from '@nestjs/microservices';
+import { OpenAccountCommand } from '@shared/commands';
+import { BANK_ACCOUNT_COMMAND_SERVICE_NAME, OpenAccountResponse } from '@command/common/proto/bank-account-command.pb';
+import { OpenAccountDto } from './open-account.dto';
 
 @Controller()
 export class OpenAccountController {

@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
-import { OpenAccountDto } from '../controllers/open-account.dto';
-import { AccountType } from '../../common/enums/account-type.enum';
+import { OpenAccountDto } from '../../command/src/open-account/controllers/open-account.dto';
+import { AccountType } from '../enums/account-type.enum';
 
 export class OpenAccountCommand {
   private readonly id: string;

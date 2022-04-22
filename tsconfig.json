@@ -19,7 +19,8 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@command/*": ["./apps/command/src/*"],
-      "@query/*": ["./apps/query/src/*"]
+      "@query/*": ["./apps/query/src/*"],
+      "@shared/*": ["./apps/shared/*"]
     }
   }
 }

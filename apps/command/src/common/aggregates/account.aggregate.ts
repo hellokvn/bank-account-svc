@@ -2,8 +2,8 @@ import { HttpException, HttpStatus } from '@nestjs/common';
 import { ExtendedAggregateRoot } from 'nest-event-sourcing';
 import { CloseAccountCommand } from '@command/close-account/commands/close-account.command';
 import { AccountClosedEvent } from '@command/close-account/events/account-closed.event';
-import { OpenAccountCommand } from '@command/open-account/commands/open-account.command';
-import { AccountOpenedEvent } from '@command/open-account/events/account-opened.event';
+import { OpenAccountCommand } from '@shared/commands';
+import { AccountOpenedEvent } from '@shared/events';
 
 export class AccountAggregate extends ExtendedAggregateRoot {
   private active: boolean;

@@ -6,7 +6,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { KafkaConfigService } from '@query/common/services/kafka.service';
 import { AccountRepository } from '../../common/repository/account.repository';
 import { AccountConsumer } from './consumer/account.consumer';
-import { AccountController } from './controller/account.controller';
 import { AccountOpenedHandler } from './event/account-opened.handler';
 import { AllAccountsHandler } from './query/all-accounts.handler';
 
@@ -14,25 +13,25 @@ import { AllAccountsHandler } from './query/all-accounts.handler';
   imports: [
     CqrsModule,
     EventEmitterModule.forRoot(),
-    ClientsModule.registerAsync([{ name: 'Kafka', useClass: KafkaConfigService }]),
-    // ClientsModule.register([
-    //   {
-    //     name: 'HERO_SERVICE',
-    //     transport: Transport.KAFKA,
-    //     options: {
-    //       client: {
-    //         clientId: 'my-app',
-    //         brokers: ['localhost:9092'],
-    //       },
-    //       consumer: {
-    //         groupId: 'test-group',
-    //       },
-    //     },
-    //   },
-    // ]),
+    // ClientsModule.registerAsync([{ name: 'Kafka', useClass: KafkaConfigService }]),
+    ClientsModule.register([
+      {
+        name: 'HERO_SERVICE',
+        transport: Transport.KAFKA,
+        options: {
+          client: {
+            clientId: 'my-app',
+            brokers: ['localhost:9092'],
+          },
+          consumer: {
+            groupId: 'test-group',
+          },
+        },
+      },
+    ]),
     TypeOrmModule.forFeature([AccountRepository]),
   ],
-  controllers: [AccountController, AccountConsumer],
+  controllers: [AccountConsumer],
   providers: [AccountOpenedHandler, AllAccountsHandler],
 })
 export class OpenAccountModule {}

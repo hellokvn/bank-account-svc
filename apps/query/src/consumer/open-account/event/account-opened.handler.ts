@@ -10,7 +10,7 @@ export class AccountOpenedHandler implements IEventHandler<AccountOpenedEvent> {
   private repository: AccountRepository;
 
   public async handle(event: AccountOpenedEvent) {
-    console.log('eventbus ____ AccountOpenedHandler/handle', { event });
+    console.log('AccountOpenedHandler/handle', { event });
     const account: Account = new Account();
 
     account.id = event.id;
@@ -19,6 +19,8 @@ export class AccountOpenedHandler implements IEventHandler<AccountOpenedEvent> {
     account.email = event.email;
     account.balance = event.openingBalance;
     account.createdDate = event.createdDate;
+
+    console.log({ account });
 
     this.repository.save(account);
   }

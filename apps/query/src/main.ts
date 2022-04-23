@@ -2,6 +2,7 @@ import { INestApplication, Logger, NestHybridApplicationOptions, ValidationPipe 
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { HttpExceptionFilter } from '@shared/filter/http-exception.filter';
 import { join } from 'path';
 import { AppModule } from './app.module';
 import { BANK_ACCOUNT_QUERY_PACKAGE_NAME } from './proto/bank-account-query.pb';
@@ -24,6 +25,8 @@ async function bootstrap() {
 
 async function configure(app: INestApplication, config: ConfigService): Promise<void> {
   const inherit: NestHybridApplicationOptions = { inheritAppConfig: true };
+
+  app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 
   app.connectMicroservice({
@@ -36,13 +39,14 @@ async function configure(app: INestApplication, config: ConfigService): Promise<
     inherit,
   });
 
-  app.connectMicroservice<MicroserviceOptions>({
+  app.connectMicroservice({
     transport: Transport.KAFKA,
     options: {
       client: {
         brokers: [config.get('QUERY_KAFKA_URL')],
       },
     },
+    inherit,
   });
 
   await app.startAllMicroservices();

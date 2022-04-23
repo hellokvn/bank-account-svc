@@ -14,11 +14,11 @@ export class AccountConsumer implements OnApplicationBootstrap {
   private readonly eventBus: EventBus;
 
   public async onApplicationBootstrap() {
-    this.client.subscribeToResponseOf(AccountOpenedEvent.constructor.name);
+    this.client.subscribeToResponseOf('AccountOpenedEvent');
     this.client.connect();
   }
 
-  @MessagePattern(AccountOpenedEvent.constructor.name)
+  @MessagePattern('AccountOpenedEvent')
   private consume(@Payload() { value }: KafkaMessage): void {
     console.log('AccountConsumer/consume -> AccountOpenedEvent', { value });
     const event: AccountOpenedEvent = plainToClass(AccountOpenedEvent, value);

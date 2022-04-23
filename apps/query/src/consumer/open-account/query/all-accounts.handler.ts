@@ -9,6 +9,7 @@ export class AllAccountsHandler implements IQueryHandler<AllAccountsQuery> {
   private repository: AccountRepository;
 
   public async execute(query: AllAccountsQuery) {
+    console.log('AllAccountsHandler/execute');
     return this.repository.find();
   }
 }

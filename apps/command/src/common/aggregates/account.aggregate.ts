@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { ExtendedAggregateRoot } from 'nest-event-sourcing';
-import { CloseAccountCommand } from '@command/close-account/commands/close-account.command';
-import { AccountClosedEvent } from '@command/close-account/events/account-closed.event';
+import { CloseAccountCommand } from '@shared/commands/close-account.command';
+import { AccountClosedEvent } from '@shared/events/account-closed.event';
 import { OpenAccountCommand } from '@shared/commands';
 import { AccountOpenedEvent } from '@shared/events';
 
@@ -35,7 +35,6 @@ export class AccountAggregate extends ExtendedAggregateRoot {
   }
 
   public openAccount(command: OpenAccountCommand): void {
-    console.log('AccountAggregate/openAccount');
     const event: AccountOpenedEvent = new AccountOpenedEvent(command);
     // logic
     this.apply(event);
@@ -50,7 +49,6 @@ export class AccountAggregate extends ExtendedAggregateRoot {
   }
 
   public closeAccount(command: CloseAccountCommand): void | never {
-    console.log('AccountAggregate/closeAccount', this.active);
     if (!this.active) {
       throw new HttpException('This account is already closed!', HttpStatus.BAD_REQUEST);
     }

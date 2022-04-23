@@ -1,10 +1,9 @@
-import { Logger, INestApplication, ValidationPipe, INestMicroservice, NestHybridApplicationOptions } from '@nestjs/common';
+import { Logger, INestApplication, ValidationPipe, NestHybridApplicationOptions } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { Transport } from '@nestjs/microservices';
-import { join } from 'path';
+import { HttpExceptionFilter } from '@shared/filter/http-exception.filter';
 import { AppModule } from './app.module';
-import { HttpExceptionFilter } from './common/filter/http-exception.filter';
 import { BANK_ACCOUNT_COMMAND_PACKAGE_NAME } from './common/proto/bank-account-command.pb';
 
 async function bootstrap() {

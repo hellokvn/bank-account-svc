@@ -12,8 +12,6 @@ export class CloseAccountController {
 
   @GrpcMethod(BANK_ACCOUNT_COMMAND_SERVICE_NAME, 'CloseAccount')
   public async openAccount(@Body() payload: CloseAccountDto): Promise<CloseAccountResponse> {
-    console.log('');
-    console.log('GRPC CloseAccount');
     const command: CloseAccountCommand = new CloseAccountCommand(payload);
 
     await this.commandBus.execute(command);

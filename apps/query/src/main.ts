@@ -4,7 +4,7 @@ import { NestFactory } from '@nestjs/core';
 import { Transport } from '@nestjs/microservices';
 import { HttpExceptionFilter } from '@shared/filter/http-exception.filter';
 import { AppModule } from './app.module';
-import { BANK_ACCOUNT_QUERY_PACKAGE_NAME } from './proto/bank-account-query.pb';
+import { BANK_ACCOUNT_QUERY_PACKAGE_NAME } from './common/proto/bank-account-query.pb';
 
 async function bootstrap() {
   const app: INestApplication = await NestFactory.create(AppModule);

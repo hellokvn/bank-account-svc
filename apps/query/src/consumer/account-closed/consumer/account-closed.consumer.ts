@@ -4,7 +4,7 @@ import { ClientKafka, MessagePattern, Payload } from '@nestjs/microservices';
 import { plainToClass } from 'class-transformer';
 import { KafkaMessage } from 'kafkajs';
 import { AccountClosedEvent } from '@shared/events';
-import { BANK_ACCOUNT_QUERY_SERVICE_NAME } from '@query/proto/bank-account-query.pb';
+import { BANK_ACCOUNT_QUERY_SERVICE_NAME } from '@query/common/proto/bank-account-query.pb';
 
 @Controller()
 export class AccountConsumer implements OnApplicationBootstrap {

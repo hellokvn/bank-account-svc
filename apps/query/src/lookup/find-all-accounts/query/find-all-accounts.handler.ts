@@ -2,7 +2,7 @@ import { QueryHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Account } from '@query/common/entity/account.entity';
 import { AccountRepository } from '@query/common/repository/account.repository';
-import { FindAllAccountsResponseData } from '@query/proto/bank-account-query.pb';
+import { FindAllAccountsResponseData } from '@query/common/proto/bank-account-query.pb';
 import { FindAllAccountsQuery } from './find-all-accounts.query';
 
 @QueryHandler(FindAllAccountsQuery)

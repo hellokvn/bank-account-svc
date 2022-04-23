@@ -4,7 +4,7 @@ import { CloseAccountController } from './controllers/close-account.controller';
 import { AccountClosedHandler } from './events/account-closed.handler';
 import { EventSourcingHandler } from 'nest-event-sourcing';
 import { CloseAccountHandler } from './commands/close-account.handler';
-import { AccountEventProducer } from '../common/account-event.producer';
+import { AccountEventProducer } from '../common/producer/account-event.producer';
 
 @Module({
   imports: [CqrsModule],

@@ -4,7 +4,7 @@ import { OpenAccountController } from './controllers/open-account.controller';
 import { AccountOpenedHandler } from './events/account-opened.handler';
 import { EventSourcingHandler } from 'nest-event-sourcing';
 import { OpenAccountHandler } from './commands/open-account.handler';
-import { AccountEventProducer } from '../common/account-event.producer';
+import { AccountEventProducer } from '../common/producer/account-event.producer';
 
 @Module({
   imports: [CqrsModule],

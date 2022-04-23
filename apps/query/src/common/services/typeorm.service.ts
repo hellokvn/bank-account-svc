@@ -11,7 +11,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
   public createTypeOrmOptions(): TypeOrmModuleOptions {
     return {
       type: 'postgres',
-      url: this.config.get('READ_DB_URL'),
+      url: this.config.get('QUERY_DB_URL'),
       entities: [Account],
       migrations: ['dist/migrations/*.js'],
       migrationsTableName: 'typeorm_migrations',

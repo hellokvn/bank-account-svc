@@ -9,17 +9,14 @@ export class KafkaConfigService implements ClientsModuleOptionsFactory {
 
   public createClientOptions(): ClientProvider {
     return {
+      transport: Transport.KAFKA,
       options: {
-        name: 'HERO_SERVICE',
-        transport: Transport.KAFKA,
-        options: {
-          client: {
-            clientId: 'my-app',
-            brokers: ['localhost:9092'],
-          },
-          consumer: {
-            groupId: 'test-group',
-          },
+        client: {
+          clientId: 'my-app',
+          brokers: [this.config.get('KAFKA_URL')],
+        },
+        consumer: {
+          groupId: 'test-group',
         },
       },
     };

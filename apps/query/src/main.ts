@@ -1,9 +1,8 @@
 import { INestApplication, Logger, NestHybridApplicationOptions, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
-import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { Transport } from '@nestjs/microservices';
 import { HttpExceptionFilter } from '@shared/filter/http-exception.filter';
-import { join } from 'path';
 import { AppModule } from './app.module';
 import { BANK_ACCOUNT_QUERY_PACKAGE_NAME } from './proto/bank-account-query.pb';
 
@@ -11,7 +10,6 @@ async function bootstrap() {
   const app: INestApplication = await NestFactory.create(AppModule);
   const config: ConfigService = app.get(ConfigService);
   const logger: Logger = new Logger();
-  const port: number = 3001;
 
   await configure(app, config);
 
@@ -34,7 +32,7 @@ async function configure(app: INestApplication, config: ConfigService): Promise<
     options: {
       url: config.get('QUERY_GRPC_URL'),
       package: BANK_ACCOUNT_QUERY_PACKAGE_NAME,
-      protoPath: join('node_modules/bank-shared-proto/proto/bank-account-query.proto'),
+      protoPath: 'node_modules/bank-shared-proto/proto/bank-account-query.proto',
     },
     inherit,
   });
@@ -43,7 +41,7 @@ async function configure(app: INestApplication, config: ConfigService): Promise<
     transport: Transport.KAFKA,
     options: {
       client: {
-        brokers: [config.get('QUERY_KAFKA_URL')],
+        brokers: [config.get('KAFKA_URL')],
       },
     },
     inherit,

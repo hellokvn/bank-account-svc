@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
-import { OpenAccountModule } from './open-account/open-account.module';
+import { AccountClosedModule } from './account-closed/account-closed.module';
+import { AccountOpenedModule } from './account-opened/account-opened.module';
 
-@Module({ imports: [OpenAccountModule] })
+@Module({ imports: [AccountOpenedModule, AccountClosedModule] })
 export class ConsumerModule {}

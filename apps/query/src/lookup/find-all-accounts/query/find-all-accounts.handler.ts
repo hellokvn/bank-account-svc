@@ -11,7 +11,6 @@ export class FindAllAccountsQueryHandler implements ICommandHandler<FindAllAccou
   private repository: AccountRepository;
 
   public async execute(query: FindAllAccountsQuery): Promise<FindAllAccountsResponseData> {
-    console.log('FindAllAccountsQueryHandler/execute');
     const take: number = 15;
     const total: number = await this.repository.count();
     const pageLength: number = Math.ceil(total / take) || 1;

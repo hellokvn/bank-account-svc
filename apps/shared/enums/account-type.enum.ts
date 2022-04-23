@@ -1,4 +1,4 @@
 export enum AccountType {
-  SAVINGS,
-  CURRENT,
+  SAVINGS = 'SAVINGS',
+  CURRENT = 'CURRENT',
 }

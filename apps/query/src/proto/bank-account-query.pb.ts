@@ -13,6 +13,13 @@ export interface Account {
   balance: number;
 }
 
+export interface FindAllAccountsResponseData {
+  accounts: Account[];
+  total: number;
+  count: number;
+  page: number;
+}
+
 export interface FindAllAccountsRequest {
   page: number;
 }
@@ -20,10 +27,7 @@ export interface FindAllAccountsRequest {
 export interface FindAllAccountsResponse {
   status: number;
   error: string[];
-  data: Account[];
-  total: number;
-  count: number;
-  page: number;
+  data: FindAllAccountsResponseData | undefined;
 }
 
 export interface FindAccountRequest {

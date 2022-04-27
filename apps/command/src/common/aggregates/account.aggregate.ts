@@ -25,7 +25,14 @@ export class AccountAggregate extends ExtendedAggregateRoot {
     this.balance = value;
   }
 
-  // methods
+  // Open Account
+
+  public openAccount(command: OpenAccountCommand): void {
+    console.log('AccountAggregate/openAccount');
+    const event: AccountOpenedEvent = new AccountOpenedEvent(command);
+    // logic
+    this.apply(event);
+  }
 
   public onAccountOpenedEvent(event: AccountOpenedEvent): void {
     console.log('AccountAggregate/onAccountOpenedEvent');
@@ -34,19 +41,7 @@ export class AccountAggregate extends ExtendedAggregateRoot {
     this.setBalance(event.openingBalance);
   }
 
-  public openAccount(command: OpenAccountCommand): void {
-    const event: AccountOpenedEvent = new AccountOpenedEvent(command);
-    // logic
-    this.apply(event);
-  }
-
-  // methods
-
-  public onAccountClosedEvent(event: AccountClosedEvent): void {
-    console.log('AccountAggregate/onAccountClosedEvent');
-    this.id = event.id;
-    this.setActive(false);
-  }
+  // Close Account
 
   public closeAccount(command: CloseAccountCommand): void | never {
     if (!this.active) {
@@ -56,5 +51,11 @@ export class AccountAggregate extends ExtendedAggregateRoot {
     const event: AccountClosedEvent = new AccountClosedEvent(command);
     // logic
     this.apply(event);
+  }
+
+  public onAccountClosedEvent(event: AccountClosedEvent): void {
+    console.log('AccountAggregate/onAccountClosedEvent');
+    this.id = event.id;
+    this.setActive(false);
   }
 }

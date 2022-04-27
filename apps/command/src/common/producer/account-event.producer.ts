@@ -17,7 +17,7 @@ export class AccountEventProducer {
   }
 
   public produce<T extends BaseEvent>(topic: string, event: T): void {
-    console.log('produce', topic);
+    console.log('AccountEventProducer', topic);
     this.producer.send({ topic: topic, messages: [{ value: JSON.stringify(event) }] });
   }
 }

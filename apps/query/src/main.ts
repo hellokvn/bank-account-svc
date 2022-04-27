@@ -1,4 +1,4 @@
-import { INestApplication, Logger, NestHybridApplicationOptions, ValidationPipe } from '@nestjs/common';
+import { INestApplication, Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { Transport } from '@nestjs/microservices';
@@ -22,30 +22,37 @@ async function bootstrap() {
 }
 
 async function configure(app: INestApplication, config: ConfigService): Promise<void> {
-  const inherit: NestHybridApplicationOptions = { inheritAppConfig: true };
-
+  app.enableShutdownHooks();
   app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 
-  app.connectMicroservice({
-    transport: Transport.GRPC,
-    options: {
-      url: config.get('QUERY_GRPC_URL'),
-      package: BANK_ACCOUNT_QUERY_PACKAGE_NAME,
-      protoPath: 'node_modules/bank-shared-proto/proto/bank-account-query.proto',
-    },
-    inherit,
-  });
-
-  app.connectMicroservice({
-    transport: Transport.KAFKA,
-    options: {
-      client: {
-        brokers: [config.get('KAFKA_URL')],
+  app.connectMicroservice(
+    {
+      transport: Transport.GRPC,
+      options: {
+        url: config.get('QUERY_GRPC_URL'),
+        package: BANK_ACCOUNT_QUERY_PACKAGE_NAME,
+        protoPath: 'node_modules/bank-shared-proto/proto/bank-account-query.proto',
       },
     },
-    inherit,
-  });
+    { inheritAppConfig: true },
+  );
+
+  app.connectMicroservice(
+    {
+      transport: Transport.KAFKA,
+      options: {
+        client: {
+          clientId: 'bank-account-client',
+          brokers: [config.get('KAFKA_URL')],
+        },
+        consumer: {
+          groupId: 'bank-account-svc',
+        },
+      },
+    },
+    { inheritAppConfig: true },
+  );
 
   await app.startAllMicroservices();
 }

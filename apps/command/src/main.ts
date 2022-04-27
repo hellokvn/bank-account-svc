@@ -22,8 +22,7 @@ async function bootstrap() {
 
 // TODO: is hybrid necessasry? Problably not.
 async function configure(app: INestApplication, config: ConfigService): Promise<void> {
-  const inherit: NestHybridApplicationOptions = { inheritAppConfig: true };
-
+  app.enableShutdownHooks();
   app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 
@@ -36,7 +35,7 @@ async function configure(app: INestApplication, config: ConfigService): Promise<
         protoPath: 'node_modules/bank-shared-proto/proto/bank-account-command.proto',
       },
     },
-    inherit,
+    { inheritAppConfig: true },
   );
 
   await app.startAllMicroservices();

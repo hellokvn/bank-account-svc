@@ -13,6 +13,7 @@ export class OpenAccountHandler implements ICommandHandler<OpenAccountCommand> {
   private publisher: EventPublisher;
 
   public async execute(command: OpenAccountCommand): Promise<void> {
+    console.log('OpenAccountHandler');
     const aggregate: AccountAggregate = new AccountAggregate();
 
     this.publisher.mergeObjectContext(aggregate);

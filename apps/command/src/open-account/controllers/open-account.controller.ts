@@ -12,6 +12,7 @@ export class OpenAccountController {
 
   @GrpcMethod(BANK_ACCOUNT_COMMAND_SERVICE_NAME, 'OpenAccount')
   public async openAccount(@Body() payload: OpenAccountDto): Promise<OpenAccountResponse> {
+    console.log('OpenAccountController');
     const command: OpenAccountCommand = new OpenAccountCommand(payload);
 
     await this.commandBus.execute(command);

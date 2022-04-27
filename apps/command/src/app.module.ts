@@ -7,7 +7,7 @@ import { OpenAccountModule } from './open-account/open-account.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    EventSourcingModule.forRoot({ mongoUrl: 'mongodb://localhost:27017/bankAccount' }),
+    EventSourcingModule.forRoot({ mongoUrl: 'mongodb://localhost:27017/account' }),
     OpenAccountModule,
     CloseAccountModule,
   ],

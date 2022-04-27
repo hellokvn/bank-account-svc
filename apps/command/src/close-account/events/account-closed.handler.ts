@@ -4,7 +4,7 @@ import { AccountEventProducer } from '@command/common/producer/account-event.pro
 import { AccountClosedEvent } from '@shared/events/account-closed.event';
 
 @EventsHandler(AccountClosedEvent)
-export class AccountClosedHandler implements IEventHandler {
+export class AccountClosedHandler implements IEventHandler<AccountClosedEvent> {
   @Inject(AccountEventProducer)
   private eventProducer: AccountEventProducer;
 

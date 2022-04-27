@@ -15,9 +15,6 @@ export class Account {
   @Column({ type: 'enum', enum: AccountType })
   public type: AccountType;
 
-  @Column()
-  public balance: number;
-
   @Column({ name: 'is_active', default: true })
   public isActive: boolean;
 

@@ -16,7 +16,6 @@ export class AccountOpenedHandler implements IEventHandler<AccountOpenedEvent> {
     account.holder = event.holder;
     account.type = event.type;
     account.email = event.email;
-    account.balance = event.openingBalance;
     account.createdDate = event.createdDate;
 
     this.repository.save(account);

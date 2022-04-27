@@ -3,7 +3,7 @@ import { ExceptionFilter, Catch, HttpException, HttpStatus } from '@nestjs/commo
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
   catch(exception: HttpException) {
-    console.log('HttpExceptionFilter/catch');
+    console.log('HttpExceptionFilter/catch -------------------');
     const status: HttpStatus = exception.getStatus();
     const error: string | object | any = exception.getResponse();
     const timestamp: string = new Date().toISOString();

@@ -1,4 +1,5 @@
 import { BaseEvent } from 'nestjs-event-sourcing';
+
 import { AccountType } from '../enums/account-type.enum';
 import { OpenAccountCommand } from '../commands/open-account.command';
 

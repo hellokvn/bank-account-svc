@@ -8,10 +8,10 @@ import { AccountAggregate } from '@command/common/aggregates/account.aggregate';
 @CommandHandler(CloseAccountCommand)
 export class CloseAccountHandler implements ICommandHandler<CloseAccountCommand> {
   @Inject(EventSourcingHandler)
-  private eventSourcingHandler: EventSourcingHandler<AccountAggregate>;
+  private readonly eventSourcingHandler: EventSourcingHandler<AccountAggregate>;
 
   @Inject(EventPublisher)
-  private publisher: EventPublisher;
+  private readonly publisher: EventPublisher;
 
   public async execute(command: CloseAccountCommand): Promise<void> {
     console.log('CloseAccountHandler/execute');

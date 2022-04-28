@@ -1,12 +1,13 @@
-import { Logger, INestApplication, ValidationPipe, NestHybridApplicationOptions } from '@nestjs/common';
+import { Logger, INestApplication, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { Transport } from '@nestjs/microservices';
+
 import { HttpExceptionFilter } from '@shared/filter/http-exception.filter';
 import { AppModule } from './app.module';
 import { BANK_ACCOUNT_COMMAND_PACKAGE_NAME } from './common/proto/bank-account-command.pb';
 
-async function bootstrap() {
+async function bootstrap(): Promise<void> {
   const app: INestApplication = await NestFactory.create(AppModule);
   const config: ConfigService = app.get(ConfigService);
   const logger: Logger = new Logger();

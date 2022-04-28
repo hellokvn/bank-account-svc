@@ -3,6 +3,7 @@ import { EventBus } from '@nestjs/cqrs';
 import { ClientKafka, MessagePattern, Payload } from '@nestjs/microservices';
 import { plainToClass } from 'class-transformer';
 import { KafkaMessage } from 'kafkajs';
+
 import { AccountOpenedEvent } from '@shared/events';
 
 @Controller()

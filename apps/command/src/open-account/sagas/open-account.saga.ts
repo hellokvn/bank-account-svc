@@ -1,3 +1,9 @@
+import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Saga, ICommand, ofType } from '@nestjs/cqrs';
+import { Client, ClientGrpc, Transport } from '@nestjs/microservices';
+import { Observable, map, firstValueFrom, delay } from 'rxjs';
+
+import { AccountOpenedEvent } from '@shared/events';
 import {
   BankFundsCommandServiceClient,
   BANK_FUNDS_COMMAND_PACKAGE_NAME,
@@ -5,11 +11,6 @@ import {
   DepositFundsRequest,
   DepositFundsResponse,
 } from '@command/common/proto/bank-funds-command.pb';
-import { Injectable, OnModuleInit } from '@nestjs/common';
-import { Saga, ICommand, ofType } from '@nestjs/cqrs';
-import { Client, ClientGrpc, Transport } from '@nestjs/microservices';
-import { AccountOpenedEvent } from '@shared/events';
-import { Observable, map, firstValueFrom, delay } from 'rxjs';
 
 @Injectable()
 export class OpenAccountSaga implements OnModuleInit {

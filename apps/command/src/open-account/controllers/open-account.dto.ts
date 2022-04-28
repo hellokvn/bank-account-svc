@@ -1,4 +1,5 @@
 import { IsEmail, IsEnum, IsNotEmpty, IsNumber, IsString, Min } from 'class-validator';
+
 import { AccountType } from '@shared/enums';
 
 export class OpenAccountDto {

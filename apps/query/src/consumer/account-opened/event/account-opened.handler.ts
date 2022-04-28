@@ -1,15 +1,16 @@
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AccountRepository } from '../../../common/repository/account.repository';
-import { Account } from '../../../common/entity/account.entity';
+
 import { AccountOpenedEvent } from '@shared/events';
+import { Account } from '@query/common/entity/account.entity';
+import { AccountRepository } from '@query/common/repository/account.repository';
 
 @EventsHandler(AccountOpenedEvent)
 export class AccountOpenedHandler implements IEventHandler<AccountOpenedEvent> {
   @InjectRepository(AccountRepository)
-  private repository: AccountRepository;
+  private readonly repository: AccountRepository;
 
-  public async handle(event: AccountOpenedEvent) {
+  public handle(event: AccountOpenedEvent): Promise<Account> {
     const account: Account = new Account();
 
     account.id = event.id;
@@ -18,6 +19,6 @@ export class AccountOpenedHandler implements IEventHandler<AccountOpenedEvent> {
     account.email = event.email;
     account.createdDate = event.createdDate;
 
-    this.repository.save(account);
+    return this.repository.save(account);
   }
 }

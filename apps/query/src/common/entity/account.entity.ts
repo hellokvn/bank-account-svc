@@ -1,5 +1,6 @@
-import { AccountType } from '@shared/enums';
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, PrimaryColumn } from 'typeorm';
+
+import { AccountType } from '@shared/enums';
 
 @Entity()
 export class Account {

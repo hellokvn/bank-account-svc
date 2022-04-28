@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
-import { CloseAccountController } from './controllers/close-account.controller';
-import { AccountClosedHandler } from './events/account-closed.handler';
 import { EventSourcingHandler } from 'nestjs-event-sourcing';
+
+import { CloseAccountController } from './controllers/close-account.controller';
 import { CloseAccountHandler } from './commands/close-account.handler';
+import { AccountClosedHandler } from './events/account-closed.handler';
 import { AccountEventProducer } from '../common/producer/account-event.producer';
 
 @Module({

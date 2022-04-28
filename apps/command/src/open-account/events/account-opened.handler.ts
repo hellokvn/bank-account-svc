@@ -9,8 +9,7 @@ export class AccountOpenedHandler implements IEventHandler<AccountOpenedEvent> {
   @Inject(AccountEventProducer)
   private readonly eventProducer: AccountEventProducer;
 
-  public async handle(event: AccountOpenedEvent) {
-    console.log('AccountOpenedHandler');
+  public handle(event: AccountOpenedEvent): void {
     const { constructor }: AccountOpenedEvent = Object.getPrototypeOf(event);
 
     this.eventProducer.produce(constructor.name, event);

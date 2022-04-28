@@ -41,7 +41,7 @@
     "class-validator": "^0.13.2",
     "kafkajs": "^1.16.0",
     "mongodb": "^4.5.0",
-    "nest-event-sourcing": "git+https://github.com/hellokvn/nest-event-sourcing.git",
+    "nestjs-event-sourcing": "^1.0.0",
     "pg": "^8.7.3",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",

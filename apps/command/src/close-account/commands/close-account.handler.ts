@@ -1,7 +1,8 @@
 import { Inject } from '@nestjs/common';
 import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
-import { EventSourcingHandler } from 'nest-event-sourcing';
-import { CloseAccountCommand } from '../../../../shared/commands/close-account.command';
+import { EventSourcingHandler } from 'nestjs-event-sourcing';
+
+import { CloseAccountCommand } from '@shared/commands/close-account.command';
 import { AccountAggregate } from '@command/common/aggregates/account.aggregate';
 
 @CommandHandler(CloseAccountCommand)

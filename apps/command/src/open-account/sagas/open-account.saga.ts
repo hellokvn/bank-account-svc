@@ -5,7 +5,7 @@ import {
   DepositFundsRequest,
   DepositFundsResponse,
 } from '@command/common/proto/bank-funds-command.pb';
-import { HttpStatus, Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { Saga, ICommand, ofType } from '@nestjs/cqrs';
 import { Client, ClientGrpc, Transport } from '@nestjs/microservices';
 import { AccountOpenedEvent } from '@shared/events';

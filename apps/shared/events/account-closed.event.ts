@@ -1,4 +1,4 @@
-import { BaseEvent } from 'nest-event-sourcing';
+import { BaseEvent } from 'nestjs-event-sourcing';
 import { CloseAccountCommand } from '../commands/close-account.command';
 
 export class AccountClosedEvent extends BaseEvent {

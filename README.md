@@ -32,6 +32,10 @@ $ npm run start:dev command
 $ npm run start:dev query
 ```
 
+## Open Account Flowchart
+
+![flowchart](https://raw.githubusercontent.com/hellokvn/bank-account-svc/master/.github/static/flowchart-open-account.jpg)
+
 ## Author
 
 - [Kevin Vogel](https://medium.com/@hellokevinvogel)

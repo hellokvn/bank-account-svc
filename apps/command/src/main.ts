@@ -17,6 +17,7 @@ async function bootstrap(): Promise<void> {
   app.listen(undefined, () => {
     logger.log(`[NOD] ${process.version}`);
     logger.log(`[ENV] ${process.env.NODE_ENV}`);
+    logger.log(`[DKR] ${process.env.IS_DOCKER ? true : false}`);
     logger.log(`[URL] ${config.get('COMMAND_GRPC_URL')}`);
   });
 }

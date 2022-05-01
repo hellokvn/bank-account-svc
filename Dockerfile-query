@@ -1,0 +1,12 @@
+FROM node:14.19.1-alpine
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN apk add git
+RUN npm install
+
+COPY . .
+
+CMD ["npm", "run", "start", "query"]

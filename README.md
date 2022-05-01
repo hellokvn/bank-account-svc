@@ -34,7 +34,7 @@ $ npm run start:dev query
 
 ## Open Account Flowchart
 
-![flowchart](https://raw.githubusercontent.com/hellokvn/bank-funds-svc/master/.github/static/flowchart-open-account.jpg)
+![flowchart](https://raw.githubusercontent.com/hellokvn/bank-account-svc/master/.github/static/flowchart-open-account.jpg)
 
 ## Author
 

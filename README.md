@@ -21,13 +21,13 @@ $ npm run proto
 ## Running with Docker
 
 ```bash
-$ docker-compose up -d
+$ docker-compose -f docker-compose.yml -f docker-compose.apps.yml up
 ```
 
 ## Running on your local machine
 
 ```bash
-$ docker-compose -f docker-compose.no-app.yml up -d
+$ docker-compose up
 $ npm run start:dev command
 $ npm run start:dev query
 ```

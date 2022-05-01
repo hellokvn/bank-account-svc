@@ -1,0 +1,50 @@
+version: "3.9"
+
+services:
+  bank_account_command_svc:
+    container_name: bank_account_command_svc
+    build:
+      context: .
+      dockerfile: Dockerfile-command
+    ports:
+      - ${COMMAND_GRPC_PORT}:${COMMAND_GRPC_PORT}
+    networks:
+      - bank_api_network
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+    environment:
+      - IS_DOCKER=true
+    depends_on:
+      kafka:
+        condition: service_started
+      mongodb:
+        condition: service_started
+
+  bank_account_query_svc:
+    container_name: bank_account_query_svc
+    build:
+      context: .
+      dockerfile: Dockerfile-query
+    ports:
+      - ${QUERY_GRPC_PORT}:${QUERY_GRPC_PORT}
+    networks:
+      - bank_api_network
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+    environment:
+      - IS_DOCKER=true
+    depends_on:
+      bank_account_command_svc:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+
+
+networks:
+  bank_api_network:
+    name: bank_api_network
+    driver: bridge

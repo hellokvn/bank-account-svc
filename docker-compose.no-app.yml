@@ -1,0 +1,79 @@
+version: "3.9"
+
+services:
+  mongodb:
+    container_name: mongodb
+    image: mongo:5.0
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - bank_api_network
+
+  postgres:
+    container_name: postgres
+    image: postgres:14.2
+    environment:
+      POSTGRES_USER: ${PSQL_DB_USER}
+      POSTGRES_PASSWORD: ${PSQL_DB_PASS}
+      POSTGRES_DB: ${PSQL_DB_NAME}
+    ports:
+      - 5432:5432
+    volumes: 
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - bank_api_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+  zookeeper:
+    container_name: zookeeper
+    image: bitnami/zookeeper
+    restart: always
+    ports:
+      - 2181:2181
+    volumes:
+      - "zookeeper_data:/bitnami"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    networks:
+      - bank_api_network
+
+  kafka:
+    container_name: kafka
+    image: bitnami/kafka
+    ports:
+      - 9092:9092
+      - 29092:29092
+    restart: always
+    volumes:
+      - kafka_data:/bitnami
+    environment:
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181 
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
+    depends_on:
+      - zookeeper
+    networks:
+      - bank_api_network
+
+volumes:
+  zookeeper_data:
+    driver: local
+  kafka_data:
+    driver: local
+  postgres_data:
+    driver: local
+  mongodb_data:
+    driver: local
+
+networks:
+  bank_api_network:
+    name: bank_api_network
+    driver: bridge

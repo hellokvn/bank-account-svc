@@ -1,0 +1,122 @@
+version: "3.9"
+
+services:
+  mongodb:
+    container_name: mongodb
+    image: mongo:5.0
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - bank_api_network
+
+  postgres:
+    container_name: postgres
+    image: postgres:14.2
+    environment:
+      POSTGRES_USER: ${PSQL_DB_USER}
+      POSTGRES_PASSWORD: ${PSQL_DB_PASS}
+      POSTGRES_DB: ${PSQL_DB_NAME}
+    ports:
+      - 5432:5432
+    volumes: 
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - bank_api_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+  zookeeper:
+    container_name: zookeeper
+    image: bitnami/zookeeper
+    restart: always
+    ports:
+      - 2181:2181
+    volumes:
+      - "zookeeper_data:/bitnami"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    networks:
+      - bank_api_network
+
+  kafka:
+    container_name: kafka
+    image: bitnami/kafka
+    ports:
+      - 9092:9092
+      - 29092:29092
+    restart: always
+    volumes:
+      - kafka_data:/bitnami
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,PLAINTEXT_HOST://:29092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+    depends_on:
+      - zookeeper
+    networks:
+      - bank_api_network
+
+  bank_account_command_svc:
+    container_name: bank_account_command_svc
+    build:
+      context: .
+      dockerfile: Dockerfile-command
+    ports:
+      - ${COMMAND_GRPC_PORT}:${COMMAND_GRPC_PORT}
+    networks:
+      - bank_api_network
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+    environment:
+      - IS_DOCKER=true
+    depends_on:
+      kafka:
+        condition: service_started
+      mongodb:
+        condition: service_started
+
+  bank_account_query_svc:
+    container_name: bank_account_query_svc
+    build:
+      context: .
+      dockerfile: Dockerfile-query
+    ports:
+      - ${QUERY_GRPC_PORT}:${QUERY_GRPC_PORT}
+    networks:
+      - bank_api_network
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+    environment:
+      - IS_DOCKER=true
+    depends_on:
+      bank_account_command_svc:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+
+volumes:
+  zookeeper_data:
+    driver: local
+  kafka_data:
+    driver: local
+  postgres_data:
+    driver: local
+  mongodb_data:
+    driver: local
+
+networks:
+  bank_api_network:
+    name: bank_api_network
+    driver: bridge

@@ -12,7 +12,7 @@ export class AccountEventProducer implements OnModuleInit, OnModuleDestroy {
 
   public async onModuleInit(): Promise<void> {
     const kafka: Kafka = new Kafka({
-      clientId: 'my-app2',
+      clientId: 'BankAccount',
       brokers: [this.config.get('KAFKA_URL')],
     });
 

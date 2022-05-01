@@ -9,7 +9,7 @@ import { LookupModule } from './lookup/lookup.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({ isGlobal: true, envFilePath: process.env.IS_DOCKER ? '.docker.env' : '.env' }),
     TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService }),
     CqrsModule,
     ConsumerModule,

@@ -13,6 +13,8 @@ export class OpenAccountController {
 
   @GrpcMethod(BANK_ACCOUNT_COMMAND_SERVICE_NAME, 'OpenAccount')
   private async openAccount(@Body() payload: OpenAccountDto): Promise<OpenAccountResponse> {
+    console.log('OpenAccount');
+    console.log({ envFilePath: process.env.IS_DOCKER ? '.docker.env' : '.env' });
     const command: OpenAccountCommand = new OpenAccountCommand(payload);
 
     await this.commandBus.execute(command);

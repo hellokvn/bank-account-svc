@@ -18,6 +18,7 @@ async function bootstrap(): Promise<void> {
     logger.log(`[NOD] ${process.version}`);
     logger.log(`[ENV] ${process.env.NODE_ENV}`);
     logger.log(`[DKR] ${process.env.IS_DOCKER ? true : false}`);
+    logger.log(`[KFK] ${config.get('KAFKA_URL')}`);
     logger.log(`[URL] ${config.get('QUERY_GRPC_URL')}`);
   });
 }

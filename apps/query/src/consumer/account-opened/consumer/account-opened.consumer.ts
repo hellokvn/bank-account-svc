@@ -24,7 +24,6 @@ export class AccountOpenedConsumer implements OnApplicationBootstrap, OnApplicat
 
   @MessagePattern('AccountOpenedEvent')
   private consume(@Payload() { value }: KafkaMessage): void {
-    console.log('AccountOpenedEvent consume --------------');
     const event: AccountOpenedEvent = plainToClass(AccountOpenedEvent, value);
 
     this.eventBus.publish(event);
